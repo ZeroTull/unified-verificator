@@ -14,20 +14,44 @@ Inspired by the CATools `verify` extension, but decoupled from the CATools ecosy
 
 ## Installation
 
-This is a Maven project (`groupId: io.unified`, `artifactId: unified-verificator`). Build and install it into your local repository:
+This is a Maven project (`groupId: io.unified`, `artifactId: unified-verificator`), published to GitHub Packages on release.
 
-```bash
-mvn clean install
-```
-
-Then add it as a dependency in your consuming project:
+Add the repository and dependency to your consuming project's `pom.xml`:
 
 ```xml
+<repositories>
+    <repository>
+        <id>github</id>
+        <name>GitHub Packages</name>
+        <url>https://maven.pkg.github.com/ZeroTull/unified-verificator</url>
+    </repository>
+</repositories>
+
 <dependency>
     <groupId>io.unified</groupId>
     <artifactId>unified-verificator</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 </dependency>
+```
+
+GitHub Packages requires authentication even for public packages. Add a `<server>` entry with a GitHub personal access token (`read:packages` scope) to `~/.m2/settings.xml`:
+
+```xml
+<servers>
+    <server>
+        <id>github</id>
+        <username>YOUR_GITHUB_USERNAME</username>
+        <password>YOUR_GITHUB_TOKEN</password>
+    </server>
+</servers>
+```
+
+In GitHub Actions, this is handled automatically via `actions/setup-java`'s `server-id`/`server-username`/`server-password` inputs and the built-in `GITHUB_TOKEN` — no manual token needed there.
+
+Alternatively, build and install it into your local repository directly:
+
+```bash
+mvn clean install
 ```
 
 ## Usage
